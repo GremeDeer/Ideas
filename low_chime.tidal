@@ -1,0 +1,120 @@
+setcps 0.58
+
+d1
+$ every 4 (stutWith 3 (0.125*3) (|* gain 0.8))
+$ sometimes (rep 3)
+$ stack [
+s "elektron1:6(3,8)" # gain 1.2,
+s "~ drum:1" # gain 1.1,
+s "elektron1:2*8?" # gain (range 0.65 0.9 $ rand),
+density 2 $ s "quadrant3*8?" # n (irand 21) # gain 1.6
+] # squiz "1 1 2 256" # lpf 7000 |* gain 1.1
+
+d1 silence
+
+d9
+$ stack [
+s "elektron1*16?"
+# n (wchoose [(0,0.25),(1,0.15),(2,0.25),(3,0),(4,0.25),(5,0),(6,0),(7,0.1)])
+# gain (range 0.7 1 $ rand),
+s "elektron1(3,8)" # n (choose [5,6])
+# gain (range 0.95 1.25 $ rand)
+] # delay 0.25 # delayt (segment (1/13) $ slow 0.125 $ range 0.1 0.99 $ rand) # delayfb 0.65
+-- # orbit 1
+
+d9
+$ stack [
+s "elektron1*16?"
+# n (wchoose [(0,0.25),(1,0.15),(2,0.25),(3,0),(4,0.25),(5,0),(6,0),(7,0.1)])
+# gain (range 0.7 1 $ rand),
+s "elektron1(2,5)" # n (choose [5,6])
+# gain (range 0.95 1.25 $ rand)
+] |* gain 1.1 # delay (choose [0.25,0.125,0.0625]) # delayt 0.125 # delayfb 0.5
+
+
+
+d9 silence
+
+up (rand*10) -- mesela
+
+d2
+$ sometimes (jux rev)
+$ stack [
+striate' "<16 4*2?>" (0.75) $ s "lead:4*2" # note (choose [-12, -1, -20, -10]) # hpf 250,
+sometimes (one'') $ note "-12 ~ -15 ~" # s "lead:1" # gain 1.2 # hpf 500
+] |* gain 1.1
+
+d2 silence
+
+d3
+-- $ foldEvery [5,8] (0.25 ~>)
+$ sometimes (# speed "-1")
+$ (often (const $ s "~"))
+$ sometimes (striate' 2 (0.75))
+$ rot (choose [0,1,2,3]) $ note "-2*2? 2 9 7*2?" # s "foley:3"
+# delay "0.25" # delayt (segment (1/17) $ slow 0.25 $ range 0.25 0.75 $ rand) # delayfb 0.85
+# room 0.8 # size 0.8 # orbit 1 # gain (range 0.7 0.9 $ rand) # attack 0.5 |* gain 1.5
+
+d3 silence
+
+d4
+$ stutWith 11 (0.0625*3) (|* gain 0.85)
+$ degradeBy 0.85 $ loopAt 0.25 $ s "fuck:9"
+# gain "1.2"
+
+d4 $ silence
+
+d5 $ s "ln" # squiz "2 2 8 256" # note "< -1 -1 -1 0 >" # gain 0.975
+
+d5 $ s "ln:2" # squiz "2 2 8 256" # note "< -1 -1 0 -3 >" # gain 0.95
+
+d5 silence
+
+d6
+$ loopAt 4
+$ someCycles (const $ s "~")
+$ s "fuck:1" # speed "-1"
+# room 0.7 # size 0.9 # gain 0.85 # orbit 1
+
+d6 silence
+
+d7
+$ stutWith 3 (0.125*3) (|* gain 0.9)
+$ degradeBy 0.65
+$ slow 2
+$ s "fuck:2*4"
+# note (choose [-0,-2,-4,-5,-7,-9,-11,-12])
+# gain (range 1.1 1.5 $ rand)
+# cut 1
+# delay 0.5 # delayt 0.125 # delayfb 0.75
+# orbit 1
+
+unsolo 7
+
+d7 silence
+
+d1 $ randslice 16 $ s "bengal:2*4?" # note "-3" # gain 1.5
+
+d8
+-- $ degradeBy 0.25
+$ randslice 4
+$ s "bengal:3*4" # note "<0 0 0 0 1 1 1 1>"
+# begin 0.5 # gain 1.3
+
+d8 silence
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+asap $ s "fuck:2"
